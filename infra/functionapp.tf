@@ -31,6 +31,7 @@ resource "azurerm_linux_function_app" "func" {
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME       = "python"
     FUNCTIONS_EXTENSION_VERSION    = "~4"
+    AzureWebJobsFeatureFlags       = "EnableWorkerIndexing"
   
     SQL_SERVER = azurerm_mysql_flexible_server.mysql.fqdn
     SQL_USER   = var.mysql_admin_user
