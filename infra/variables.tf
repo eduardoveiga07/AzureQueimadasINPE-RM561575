@@ -1,28 +1,29 @@
-variable "location" {
-  default = "chilecentral"
-}
-
 variable "resource_group_name" {
-  default = "rg-monitor-queimadas"
+  type        = string
+  description = "Nome do Resource Group"
+  default     = "rg-queimadas-dbx-aula"
 }
 
-variable "mysql_admin_user" {
-  default = "adminuser"
+variable "location" {
+  type        = string
+  description = "Região Azure"
+  default     = "chilecentral"
+}
+
+variable "mysql_admin_username" {
+  type        = string
+  description = "Administrador do MySQL Flexible Server"
+  default     = "queimadasadmin"
 }
 
 variable "mysql_admin_password" {
-  type      = string
-  sensitive = true
+  type        = string
+  description = "Senha do admin do MySQL"
+  sensitive   = true
 }
 
-variable "sql_db_name" {
-  default = "db_queimadas"
-}
-
-variable "function_app_name" {
-  default = "func-queimadas-rm561575"
-}
-
-variable "storage_account_name" {
-  default = "stqueimadasfunc561575"
+variable "database_name" {
+  type        = string
+  description = "Nome do banco"
+  default     = "queimadas"
 }
