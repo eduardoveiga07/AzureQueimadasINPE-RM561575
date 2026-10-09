@@ -25,17 +25,17 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}        
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Limpar RG existente (reset para execucao limpa)
+        run: |
+          az group delete --name rg-queimadas-rm561575 --yes 2>/dev/null || echo "RG nao existia, seguindo..."
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init
-
-      - name: Terraform Import RG (se ja existir)
-        run: |
-          terraform import azurerm_resource_group.rg /subscriptions/fe4459ea-ef85-47ba-ad58-be6b32cfd4ca/resourceGroups/rg-queimadas-dbx-aula || true
 
       - name: Terraform Validate
         run: terraform validate
