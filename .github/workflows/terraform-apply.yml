@@ -27,9 +27,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Limpar RG existente (reset para execucao limpa)
+      - name: Limpar RG MySQL existente (reset para execucao limpa)
         run: |
-          az group delete --name rg-queimadas-rm561575 --yes 2>/dev/null || echo "RG nao existia, seguindo..."
+          az group delete --name rg-mysql-queimadas-rm561575 --yes 2>/dev/null || echo "RG nao existia, seguindo..."
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
