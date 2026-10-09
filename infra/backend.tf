@@ -5,15 +5,12 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.90"
     }
-  }
-  backend "azurerm" {
-    resource_group_name  = "rg-tfstate"
-    storage_account_name = "sttfstatequeimadas561575"
-    container_name       = "tfstate"
-    key                  = "monitor-queimadas.tfstate"
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
   }
 }
-
 
 provider "azurerm" {
   features {}
