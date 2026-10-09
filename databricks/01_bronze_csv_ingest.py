@@ -1,26 +1,9 @@
-from pyspark.sql import functions as F
 from pyspark.sql.types import (
     StructType, StructField, StringType, DoubleType, TimestampType, LongType
 )
-from pyspark.sql import Row
-from datetime import datetime
 
-dbutils.widgets.text("input_file_path", "")
-input_file_path = dbutils.widgets.get("input_file_path")
-
-if not input_file_path:
-    raise ValueError("Parâmetro input_file_path não informado.")
-
-file_name = input_file_path.split("/")[-1]
-
-audit_rows = [Row(
-    data_processamento=str(datetime.now()),
-    arquivo_origem=file_name,
-    caminho_arquivo=input_file_path,
-    status="sucesso"
-)]
-
-spark.createDataFrame(audit_rows).write.mode("append").saveAsTable("INPE.bronze.auditoria_ingestao")
+# Caminho direto do Unity Catalog Volume — sem parametro, sem dbfs:
+VOLUME_PATH = "/Volumes/inpe/bronze/arquivo"
 
 schema = StructType([
     StructField("id", StringType()),
@@ -46,11 +29,11 @@ df_bronze = (
     .option("header", True)
     .option("encoding", "UTF-8")
     .schema(schema)
-    .csv(input_file_path)
+    .csv(VOLUME_PATH)
 )
 
 display(df_bronze)
 df_bronze.printSchema()
 
 df_bronze.write.format("delta").mode("overwrite") \
-    .saveAsTable("INPE.bronze.focos_raw")
+    .saveAsTable("inpe.bronze.focos_raw")
