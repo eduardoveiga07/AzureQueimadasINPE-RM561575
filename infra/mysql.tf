@@ -1,5 +1,11 @@
+resource "random_string" "suffix" {
+  length  = 6
+  upper   = false
+  special = false
+}
+
 resource "azurerm_mysql_flexible_server" "mysql" {
-  name                   = "mysql-queimadas-rm561575"
+  name                   = "mysql-queimadas-${random_string.suffix.result}"
   resource_group_name    = azurerm_resource_group.rg.name
   location               = azurerm_resource_group.rg.location
   administrator_login    = var.mysql_admin_username
