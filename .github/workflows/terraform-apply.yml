@@ -33,6 +33,10 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      - name: Terraform Import RG (se ja existir)
+        run: |
+          terraform import azurerm_resource_group.rg /subscriptions/fe4459ea-ef85-47ba-ad58-be6b32cfd4ca/resourceGroups/rg-queimadas-dbx-aula || true
+
       - name: Terraform Validate
         run: terraform validate
 
